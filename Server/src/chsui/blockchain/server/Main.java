@@ -48,7 +48,7 @@ public class Main {
                 out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
 
                 String command = in.readLine();
-                System.out.println("Run Command: " + command);
+                System.out.println("[" + socket.getInetAddress().getHostAddress() + "]Run Command: " + command);
 
                 out.write(exec(command));
                 out.flush();
