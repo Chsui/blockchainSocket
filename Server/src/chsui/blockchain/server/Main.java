@@ -10,10 +10,9 @@ public class Main {
     private static String exec(String command){
         String result = "";
         Runtime rt = Runtime.getRuntime();
-        Process p = null;
         StringBuffer sb = new StringBuffer();
         try{
-            p = rt.exec(command);
+            Process p = rt.exec(command);
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String cl = null;
             while((cl=in.readLine())!=null){
@@ -30,7 +29,6 @@ public class Main {
     }
 
     private static void openServer() {
-        Socket socket = null;
         ServerSocket s_socket = null;
         BufferedReader in = null;
         PrintWriter out = null;
@@ -43,16 +41,19 @@ public class Main {
 
         try {
             System.out.println("Server open");
-            socket = s_socket.accept();
+            while(true) {
+                Socket socket = s_socket.accept();
 
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
+                in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(socket.getOutputStream())));
 
-            String command = in.readLine();
+                String command = in.readLine();
+                System.out.println("Run Command: " + command);
 
-            out.write(exec(command));
-            out.flush();
-            socket.close();
+                out.write(exec(command));
+                out.flush();
+                socket.close();
+            }
         } catch(IOException e) {
             e.printStackTrace();
         }
