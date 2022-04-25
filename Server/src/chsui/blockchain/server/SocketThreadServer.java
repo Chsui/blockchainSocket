@@ -18,7 +18,6 @@ public class SocketThreadServer extends Thread {
         PrintWriter out = null;
         try {
             String connIp = socket.getInetAddress().getHostAddress();
-            System.out.println(connIp + "에서 연결 시도");
 
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream());

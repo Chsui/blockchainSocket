@@ -60,6 +60,7 @@ public class Main {
     }*/
 
     public static void main(String[] args) {
+        System.out.println("Server open");
         try(ServerSocket server = new ServerSocket(port)) {
             while(true) {
                 Socket connection = server.accept();
