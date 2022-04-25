@@ -7,7 +7,7 @@ import java.net.Socket;
 public class Main {
     private static int port = 25555;
 
-    private static String exec(String command){
+    public static String exec(String command){
         String result = "";
         Runtime rt = Runtime.getRuntime();
         StringBuffer sb = new StringBuffer();
@@ -28,7 +28,7 @@ public class Main {
         return result;
     }
 
-    private static void openServer() {
+    /*private static void openServer() {
         ServerSocket s_socket = null;
         BufferedReader in = null;
         PrintWriter out = null;
@@ -57,9 +57,17 @@ public class Main {
         } catch(IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public static void main(String[] args) {
-        openServer();
+        try(ServerSocket server = new ServerSocket(port)) {
+            while(true) {
+                Socket connection = server.accept();
+                Thread task = new SocketThreadServer(connection);
+                task.start();
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 }
