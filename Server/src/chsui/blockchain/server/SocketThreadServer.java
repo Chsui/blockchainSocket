@@ -29,7 +29,12 @@ public class SocketThreadServer extends Thread {
             String command = in.readLine();
             System.out.println(dateFormat.format(timestamp) + " [" + connIp + "] Run Command: " + command);
 
-            out.write(Main.exec(command));
+            String execResult = Main.exec(command);
+            if(execResult != null) {
+                out.write(execResult);
+            } else {
+                out.write("Error");
+            }
             out.flush();
         } catch(IOException e) {
             e.printStackTrace();

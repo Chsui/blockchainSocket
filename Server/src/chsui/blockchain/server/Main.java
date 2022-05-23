@@ -11,10 +11,10 @@ public class Main {
         String[] args = command.split(" ");
         String pre_cmd;
         String arguments;
-        if(args[0] == "invoke") {
+        if(args[0].equals("invoke")) {
             pre_cmd = "java -cp blockchain-client.jar org.example.chaincode.invocation.InvokeChaincode ";
             arguments = command.replaceFirst("invoke ", "");
-        } else if(args[0] == "query") {
+        } else if(args[0].equals("query")) {
             pre_cmd = "java -cp blockchain-client.jar org.example.chaincode.invocation.QueryChaincode ";
             arguments = command.replaceFirst("query ", "");
         } else {
