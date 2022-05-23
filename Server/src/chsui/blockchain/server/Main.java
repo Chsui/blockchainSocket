@@ -8,11 +8,24 @@ public class Main {
     private static int port = 25555;
 
     public static String exec(String command){
+        String[] args = command.split(" ");
+        String pre_cmd;
+        String arguments;
+        if(args[0] == "invoke") {
+            pre_cmd = "java -cp blockchain-client.jar org.example.chaincode.invocation.InvokeChaincode ";
+            arguments = command.replaceFirst("invoke ", "");
+        } else if(args[0] == "query") {
+            pre_cmd = "java -cp blockchain-client.jar org.example.chaincode.invocation.QueryChaincode ";
+            arguments = command.replaceFirst("query ", "");
+        } else {
+            return null;
+        }
+
         String result = "";
         Runtime rt = Runtime.getRuntime();
         StringBuffer sb = new StringBuffer();
         try{
-            Process p = rt.exec(command);
+            Process p = rt.exec(pre_cmd + arguments);
             BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
             String cl = null;
             while((cl=in.readLine())!=null){
